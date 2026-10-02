@@ -31,12 +31,10 @@ public class Contrat {
     @Column(nullable = false)
     private Boolean valide;
 
-    // Un contrat est lié à une réservation (1 → 1), Contrat détient la FK
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "reservation_id", nullable = false, unique = true)
     private Reservation reservation;
 
-    // Un contrat peut comporter plusieurs paiements (1 → *)
-    @OneToMany(mappedBy = "contrat", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "contrat")
     private List<Paiement> paiements;
 }

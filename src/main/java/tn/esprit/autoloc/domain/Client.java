@@ -39,7 +39,6 @@ public class Client {
     @Column(nullable = false)
     private LocalDate dateInscription;
 
-    // Un client peut avoir plusieurs réservations (1 → *)
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "client")
     private List<Reservation> reservations;
 }

@@ -32,11 +32,9 @@ public class Agence {
     @Column(length = 20)
     private String telephone;
 
-    // Une agence possède plusieurs véhicules (1 → *)
-    @OneToMany(mappedBy = "agence", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "agence")
     private List<Vehicule> vehicules;
 
-    // Une agence emploie plusieurs employés (1 → *)
-    @OneToMany(mappedBy = "agence", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "agence")
     private List<Employe> employes;
 }

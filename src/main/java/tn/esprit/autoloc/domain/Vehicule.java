@@ -41,17 +41,14 @@ public class Vehicule {
     @Column(nullable = false, length = 20)
     private StatutVehicule statut;
 
-    // Plusieurs véhicules appartiennent à une agence (* → 1)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "agence_id", nullable = false)
     private Agence agence;
 
-    // Un véhicule peut avoir plusieurs maintenances (1 → *)
-    @OneToMany(mappedBy = "vehicule", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "vehicule")
     private List<Maintenance> maintenances;
 
-    // Un véhicule peut être équipé de plusieurs équipements (* → *)
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     @JoinTable(
         name = "vehicule_equipement",
         joinColumns = @JoinColumn(name = "vehicule_id"),
@@ -59,7 +56,6 @@ public class Vehicule {
     )
     private List<Equipement> equipements;
 
-    // Un véhicule peut avoir plusieurs réservations (1 → *)
-    @OneToMany(mappedBy = "vehicule", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "vehicule")
     private List<Reservation> reservations;
 }
