@@ -1,5 +1,6 @@
 package tn.esprit.autoloc.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,9 +33,12 @@ public class Agence {
     @Column(length = 20)
     private String telephone;
 
+    // Côtés inverses : éviter la boucle infinie Agence→Vehicule→Agence
     @OneToMany(mappedBy = "agence")
+    @JsonIgnore
     private List<Vehicule> vehicules;
 
     @OneToMany(mappedBy = "agence")
+    @JsonIgnore
     private List<Employe> employes;
 }

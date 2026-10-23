@@ -1,5 +1,6 @@
 package tn.esprit.autoloc.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -41,11 +42,14 @@ public class Vehicule {
     @Column(nullable = false, length = 20)
     private StatutVehicule statut;
 
+    // Propriétaire : FK agence_id — sérialisé normalement
     @ManyToOne
     @JoinColumn(name = "agence_id", nullable = false)
     private Agence agence;
 
+    // Côtés inverses : éviter les boucles infinies
     @OneToMany(mappedBy = "vehicule")
+    @JsonIgnore
     private List<Maintenance> maintenances;
 
     @ManyToMany
@@ -54,8 +58,10 @@ public class Vehicule {
         joinColumns = @JoinColumn(name = "vehicule_id"),
         inverseJoinColumns = @JoinColumn(name = "equipement_id")
     )
+    @JsonIgnore
     private List<Equipement> equipements;
 
     @OneToMany(mappedBy = "vehicule")
+    @JsonIgnore
     private List<Reservation> reservations;
 }

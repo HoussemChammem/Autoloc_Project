@@ -1,4 +1,4 @@
-package tn.esprit.autoloc.repository;
+package tn.esprit.autoloc.Repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import tn.esprit.autoloc.domain.Contrat;

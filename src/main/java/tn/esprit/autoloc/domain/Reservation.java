@@ -1,5 +1,6 @@
 package tn.esprit.autoloc.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,6 +31,7 @@ public class Reservation {
     @Column(nullable = false, length = 20)
     private StatutReservation statut;
 
+    // Propriétaires (FK dans reservation) : sérialisés normalement
     @ManyToOne
     @JoinColumn(name = "client_id", nullable = false)
     private Client client;
@@ -38,6 +40,8 @@ public class Reservation {
     @JoinColumn(name = "vehicule_id", nullable = false)
     private Vehicule vehicule;
 
+    // Côté inverse OneToOne : éviter la boucle Reservation→Contrat→Reservation
     @OneToOne(mappedBy = "reservation")
+    @JsonIgnore
     private Contrat contrat;
 }

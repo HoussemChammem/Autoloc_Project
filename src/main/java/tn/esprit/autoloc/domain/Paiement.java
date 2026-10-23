@@ -1,5 +1,6 @@
 package tn.esprit.autoloc.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,7 +32,9 @@ public class Paiement {
     @Column(nullable = false, length = 20)
     private ModePaiement modePaiement;
 
+    // Côté inverse de la composition : ne pas re-sérialiser le contrat parent
     @ManyToOne
     @JoinColumn(name = "contrat_id", nullable = false)
+    @JsonBackReference("contrat-paiements")
     private Contrat contrat;
 }

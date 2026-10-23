@@ -1,5 +1,6 @@
 package tn.esprit.autoloc.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,10 +32,13 @@ public class Contrat {
     @Column(nullable = false)
     private Boolean valide;
 
+    // Contrat détient la FK vers Reservation (OneToOne propriétaire)
     @OneToOne
     @JoinColumn(name = "reservation_id", nullable = false, unique = true)
     private Reservation reservation;
 
+    // Composition : les paiements sont sérialisés dans le JSON du contrat
     @OneToMany(mappedBy = "contrat")
+    @JsonManagedReference("contrat-paiements")
     private List<Paiement> paiements;
 }
